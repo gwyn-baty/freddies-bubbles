@@ -4,7 +4,8 @@ body {
 }
 
 body {
-  background: #00afe9;
+/*  background: #00afe9;*/
+    background: #fcf1c4;
 }
 
 .body-row {
@@ -41,8 +42,10 @@ canvas {
   height: 50;
 */
   position: absolute;
+/*
     border: 1px;
     border-radius: 300px;
+*/
     top: 2%;
     left: 5%;
   z-index: 5;
