@@ -3,12 +3,14 @@
   // ---------
 
   var canvas = document.querySelector('canvas');
-      canvas.width = document.body.clientWidth;
-      canvas.height = document.body.clientHeight;
+//      canvas.width = (document.body.clientWidth / 2.5);
+//      canvas.height = (document.body.clientHeight / 2.5);
+        canvas.width = 500;
+        canvas.height = 500;
   var ctx = canvas.getContext('2d');
   var count = canvas.height;
   var bubbles = [];
-  var bubbleCount = 30;
+  var bubbleCount = 20;
   var bubbleSpeed = 1;
   var popLines = 6;
   var popDistance = 40;
@@ -39,6 +41,7 @@
     // Draw Bubbles
     // ------------
 
+    var bubbleEdge = 130;
     ctx.beginPath();
     for (var i = 0; i < bubbles.length; i++) {
       // first num = distance between waves
@@ -54,12 +57,20 @@
         bubbles[i].count -= bubbleSpeed;
       }
       
-      if (bubbles[i].position.y <= 130) {
+      // shrink at top
+      if (bubbles[i].position.y <= bubbleEdge) {
         bubbles[i].radius -= .2;
-        if (bubbles[i].radius <= 0.2) {
+        if (bubbles[i].radius <= .2) {
           bubbles[i].popping = true;
           bubbles[i].resetPosition();
         }
+      }
+        
+      // grow at bottom
+      if (bubbles[i].position.y >= canvas.height - (bubbleEdge * 2)) {
+          while (bubbles[i].radius < bubbles[i].finalRadius) {
+              bubbles[i].radius += .2;
+          }
       }
     }
 
@@ -121,7 +132,8 @@
 
   var createBubble = function() {
     this.position = {x: 0, y: 0};
-    this.radius = 8 + Math.random() * 10;
+    this.finalRadius = 8 + Math.random() * 10;
+    this.radius = 0.2;
     this.xOff = Math.random() * canvas.width - this.radius;
     this.yOff = Math.random() * canvas.height;
     this.distanceBetweenWaves = 50 + Math.random() * 40;
@@ -132,7 +144,6 @@
     this.color = colorArray[Math.floor(Math.random()*colorArray.length)];
     this.lines = [];
     this.popping = false;
-    this.shrinkHeight = Math.floor(Math.random() * 150) + 20;
 
     // Populate Lines
     for (var i = 0; i < popLines; i++) {
@@ -145,7 +156,7 @@
 
     this.resetPosition = function() {
       this.position = {x: 0, y: 0};
-      this.radius = 8 + Math.random() * 6;
+      this.radius = 0.2;
       this.xOff = Math.random() * canvas.width - this.radius;
       this.yOff = Math.random() * canvas.height;
       this.distanceBetweenWaves = 50 + Math.random() * 40;
