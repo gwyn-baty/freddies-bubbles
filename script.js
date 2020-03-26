@@ -41,7 +41,7 @@
     // Draw Bubbles
     // ------------
 
-    var bubbleEdge = 130;
+    var bubbleEdge = 100;
     ctx.beginPath();
     for (var i = 0; i < bubbles.length; i++) {
       // first num = distance between waves
@@ -56,22 +56,38 @@
       } else {
         bubbles[i].count -= bubbleSpeed;
       }
-      
-      // shrink at top
-      if (bubbles[i].position.y <= bubbleEdge) {
-        bubbles[i].radius -= .2;
-        if (bubbles[i].radius <= .2) {
-          bubbles[i].popping = true;
-          bubbles[i].resetPosition();
-        }
+
+      if (bubbles[i].position.y > canvas.height) {
+          bubbles[i].radius = 0.2;
       }
         
+        
       // grow at bottom
-      if (bubbles[i].position.y >= canvas.height - (bubbleEdge * 2)) {
-          while (bubbles[i].radius < bubbles[i].finalRadius) {
-              bubbles[i].radius += .2;
+      if (bubbles[i].position.y < canvas.height - 50 && bubbles[i].position.y > bubbleEdge) {
+          bubbles[i].radius += 0.2;
+          if (bubbles[i].radius >= bubbles[i].finalRadius) {
+              bubbles[i].radius = bubbles[i].finalRadius;
           }
       }
+        
+            
+      // shrink at top
+      if (bubbles[i].position.y <= bubbleEdge) {
+        if (bubbles[i].radius > 0.2) {
+            bubbles[i].radius -= .2;
+        }
+        else {
+            bubbles[i].popping = true;
+            bubbles[i].resetPosition();
+        }
+        console.log("past top edge");
+//        if (bubbles[i].radius <= .2) {
+//          bubbles[i].popping = true;
+//          bubbles[i].resetPosition();
+//          console.log("tried reset position");
+//        }
+      }
+        
     }
 
     
@@ -156,6 +172,7 @@
 
     this.resetPosition = function() {
       this.position = {x: 0, y: 0};
+      this.finalRadius = 8 + Math.random() * 10;
       this.radius = 0.2;
       this.xOff = Math.random() * canvas.width - this.radius;
       this.yOff = Math.random() * canvas.height;
@@ -280,13 +297,25 @@
   // Event Listeners
   // ---------------
 
-  // canvas.addEventListener('mousemove', mouseMove);
-  document.addEventListener('click', mouseClick);
-
-function mouseClick(e) {
-  mouseClick.x = e.clientX;
-  mouseClick.y = e.clientY;
+function mouseClick(canvas, event) {
+    var rect = canvas.getBoundingClientRect()
+    mouseClick.x = event.clientX - rect.left
+    mouseClick.y = event.clientY - rect.top
+//    console.log("x: " + x + " y: " + y)
 }
+
+
+document.addEventListener('mousedown', function(e) {
+    mouseClick(canvas, e)
+})
+
+  // canvas.addEventListener('mousemove', mouseMove);
+//  document.addEventListener('click', mouseClick);
+
+//function mouseClick(e) {
+//  mouseClick.x = e.clientX;
+//  mouseClick.y = e.clientY;
+//}
 
   // function mouseMove(e) {
   //   mouseOffset.x = e.offsetX;
