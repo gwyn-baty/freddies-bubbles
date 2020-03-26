@@ -14,6 +14,8 @@
   var bubbleSpeed = 1;
   var popLines = 6;
   var popDistance = 40;
+  var bubbleEdge = 100;
+  var waveHeight = 50;
   var mouseOffset = {
     x: 0,
     y: 0
@@ -41,13 +43,12 @@
     // Draw Bubbles
     // ------------
 
-    var bubbleEdge = 100;
     ctx.beginPath();
     for (var i = 0; i < bubbles.length; i++) {
       // first num = distance between waves
       // second num = wave height
       // third num = move the center of the wave away from the edge
-      bubbles[i].position.x = Math.sin(bubbles[i].count/bubbles[i].distanceBetweenWaves) * 50 + bubbles[i].xOff;
+      bubbles[i].position.x = Math.sin(bubbles[i].count/bubbles[i].distanceBetweenWaves) * waveHeight + bubbles[i].xOff;
       bubbles[i].position.y = bubbles[i].count;
       bubbles[i].render();
 
@@ -80,7 +81,6 @@
             bubbles[i].popping = true;
             bubbles[i].resetPosition();
         }
-        console.log("past top edge");
 //        if (bubbles[i].radius <= .2) {
 //          bubbles[i].popping = true;
 //          bubbles[i].resetPosition();
@@ -150,7 +150,8 @@
     this.position = {x: 0, y: 0};
     this.finalRadius = 8 + Math.random() * 10;
     this.radius = 0.2;
-    this.xOff = Math.random() * canvas.width - this.radius;
+//    this.xOff = Math.random() * canvas.width - this.radius;
+    this.xOff = (Math.random() * canvas.width - 200) + 100;
     this.yOff = Math.random() * canvas.height;
     this.distanceBetweenWaves = 50 + Math.random() * 40;
     this.count = canvas.height + this.yOff;
@@ -174,7 +175,8 @@
       this.position = {x: 0, y: 0};
       this.finalRadius = 8 + Math.random() * 10;
       this.radius = 0.2;
-      this.xOff = Math.random() * canvas.width - this.radius;
+//      this.xOff = Math.random() * canvas.width - this.radius;
+      this.xOff = (Math.random() * canvas.width - 200) + 100;
       this.yOff = Math.random() * canvas.height;
       this.distanceBetweenWaves = 50 + Math.random() * 40;
       this.count = canvas.height + this.yOff;
