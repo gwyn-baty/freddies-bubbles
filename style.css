@@ -46,10 +46,26 @@ canvas {
     border: 1px;
     border-radius: 300px;
 */
+/*
     top: 2%;
     left: 5%;
+*/
   z-index: 5;
   background: #fcf1c4;
+}
+
+.rootBeerCanvas {
+    top: 2%;
+    left: 5%;
+}
+
+.gingerAleCanvas {
+    display: block;
+    position: absolute;
+    top: 60%;
+    left: 60%;
+    z-index: 5;
+    background: #ffffff;
 }
 
 .instructions {
