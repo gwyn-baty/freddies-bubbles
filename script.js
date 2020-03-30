@@ -151,7 +151,7 @@
     this.finalRadius = 8 + Math.random() * 10;
     this.radius = 0.2;
 //    this.xOff = Math.random() * canvas.width - this.radius;
-    this.xOff = (Math.random() * (canvas.width - 100)) + 100;
+    this.xOff = (Math.random() * (canvas.width - 200)) + 100;
     this.yOff = Math.random() * canvas.height;
     this.distanceBetweenWaves = 50 + Math.random() * 40;
     this.count = canvas.height + this.yOff;
@@ -176,7 +176,7 @@
       this.finalRadius = 8 + Math.random() * 10;
       this.radius = 0.2;
 //      this.xOff = Math.random() * canvas.width - this.radius;
-      this.xOff = (Math.random() * (canvas.width - 100)) + 100;
+      this.xOff = (Math.random() * (canvas.width - 200)) + 100;
       this.yOff = Math.random() * canvas.height;
       this.distanceBetweenWaves = 50 + Math.random() * 40;
       this.count = canvas.height + this.yOff;
